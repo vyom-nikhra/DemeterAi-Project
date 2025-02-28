@@ -1,3 +1,5 @@
+python_version == 3.8.*
+streamlit
 absl-py==1.0.0
 astunparse==1.6.3
 cachetools==5.0.0
