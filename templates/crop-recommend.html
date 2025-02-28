@@ -1,0 +1,224 @@
+{% extends "index.html" %}
+{% block content %}
+
+<div class="crop-recommendation-container">
+  <header class="recommendation-header">
+    <h1>Crop Recommendation</h1>
+    <p>Using your soil composition data and weather conditions, we can predict the best type of crop to sow</p>
+  </header>
+
+  <div class="recommendation-content">
+    <div class="image-container">
+      <img src="./static/images/upload-img.jpg" alt="Crop field" class="crop-image">
+    </div>
+
+    <form action="/crop-recommendation" method="POST" class="recommendation-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="N">Amount of Azote:</label>
+          <input class="form-control" type="number" min="0" required name="N" placeholder="Enter amount of azote">
+        </div>
+
+        <div class="form-group">
+          <label for="P">Amount of Phosphorous:</label>
+          <input class="form-control" type="number" min="0" id="P" name="P" required placeholder="Enter amount of phosphorus">
+        </div>
+
+        <div class="form-group">
+          <label for="K">Amount of Potassium:</label>
+          <input class="form-control" type="number" min="0" id="K" name="K" required placeholder="Enter amount of potassium">
+        </div>
+
+        <div class="form-group">
+          <label for="temperature">Soil Temperature:</label>
+          <input class="form-control" type="number" min="0" step="any" id="temperature" name="temperature" required placeholder="Enter soil temperature">
+        </div>
+
+        <div class="form-group">
+          <label for="humidity">Soil Humidity:</label>
+          <input class="form-control" type="number" min="0" step="any" id="humidity" name="humidity" required placeholder="Enter soil humidity level">
+        </div>
+
+        <div class="form-group">
+          <label for="phosphore">Soil pH:</label>
+          <input class="form-control" type="number" min="0" step="any" id="phosphore" name="phosphore" required placeholder="Enter soil pH">
+        </div>
+
+        <div class="form-group">
+          <label for="rainfall">Amount of Rainfall:</label>
+          <input class="form-control" type="number" min="0" step="any" id="rainfall" name="rainfall" required placeholder="Enter amount of rain received">
+        </div>
+      </div>
+
+      <div class="form-submit">
+        <button type="submit" class="btn-predict" value="submit">Predict</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  :root {
+    --primary-color: #4CAF50;
+    --primary-dark: #45a049;
+    --text-color: #333;
+    --background-color: #f4f7f4;
+    --form-background: #ffffff;
+    --input-background: #f9f9f9;
+    --input-border: #ddd;
+    --input-focus: #8CE17D;
+    --button-hover: #45a049;
+  }
+
+  .crop-recommendation-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--background-color);
+    font-family: Arial, sans-serif;
+  }
+
+  .recommendation-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #8CE17D, #4CAF50);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .recommendation-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .recommendation-header p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .recommendation-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+ .image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+}
+
+.crop-image {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1; /* Ensure the image has a 1:1 aspect ratio */
+  object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+
+  .crop-image:hover {
+    transform: scale(1.02);
+  }
+
+  .recommendation-form {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    background-color: var(--form-background);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+  }
+
+  .form-control {
+    padding: 0.75rem;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--input-background);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 2px rgba(140, 225, 125, 0.2);
+  }
+
+  .form-submit {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .btn-predict {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+
+  .btn-predict:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-predict:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .recommendation-content {
+      flex-direction: column;
+    }
+
+    .image-container, .recommendation-form {
+      max-width: 100%;
+    }
+
+    .recommendation-header {
+      padding: 1.5rem;
+    }
+
+    .recommendation-header h1 {
+      font-size: 2rem;
+    }
+
+    .recommendation-header p {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+{% endblock %}

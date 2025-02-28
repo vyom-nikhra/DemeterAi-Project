@@ -1,0 +1,225 @@
+{% extends "index.html" %}  <!-- Remove this line if you don't have a base template -->
+
+{% block content %}  <!-- Remove this line if you don't have a base template -->
+<div class="feedback-container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="feedback-header">
+        <h2>Farmer's Feedback</h2>
+        <p>Please share your experience with our farming suggestions</p>
+    </div>
+
+    <form id="feedbackForm" method="POST" action="{{ url_for('feedback') }}">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Feedback Category</label>
+            <select id="category" name="category" required>
+                <option value="">Select Category</option>
+                <option value="crop">Crop Suggestions</option>
+                <option value="fertilizer">Fertilizer Recommendations</option>
+                <option value="disease">Disease Detection</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Rate your experience</label>
+            <div class="rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+            <input type="hidden" name="rating" id="rating-value">
+        </div>
+
+        <div class="form-group">
+            <label for="feedback">Your Feedback</label>
+            <textarea id="feedback" name="feedback" rows="5" required></textarea>
+        </div>
+
+        <button type="submit">Submit Feedback</button>
+    </form>
+</div>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+    }
+
+    body {
+        background-color: #f5f5f5;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .feedback-container {
+        margin-top: 100px;
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 100%;
+        max-width: 600px;
+        transform: translateY(20px);
+        opacity: 0;
+        animation: fadeIn 0.8s forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .feedback-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .feedback-header h2 {
+        color: #2e7d32;
+        margin-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #4a4a4a;
+        font-weight: bold;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        border-color: #2e7d32;
+        outline: none;
+        box-shadow: 0 0 5px rgba(46, 125, 50, 0.2);
+    }
+
+    .rating {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+    .star {
+        font-size: 30px;
+        cursor: pointer;
+        color: #e0e0e0;
+        transition: color 0.3s ease;
+    }
+
+    .star.active {
+        color: #2e7d32;
+    }
+
+    button {
+        background-color: #2e7d32;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #1b5e20;
+        transform: translateY(-2px);
+    }
+
+    .flash-message {
+        text-align: center;
+        color: #2e7d32;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #e8f5e9;
+    }
+
+    @media (max-width: 480px) {
+        .feedback-container {
+            padding: 20px;
+        }
+
+        .star {
+            font-size: 24px;
+        }
+    }
+</style>
+
+<script>
+    // Star rating functionality
+    const stars = document.querySelectorAll('.star');
+    const ratingInput = document.getElementById('rating-value');
+    let rating = 0;
+
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            rating = star.dataset.value;
+            ratingInput.value = rating;
+            updateStars();
+        });
+
+        star.addEventListener('mouseover', () => {
+            const value = star.dataset.value;
+            highlightStars(value);
+        });
+
+        star.addEventListener('mouseout', () => {
+            highlightStars(rating);
+        });
+    });
+
+    function highlightStars(value) {
+        stars.forEach(star => {
+            star.classList.toggle('active', star.dataset.value <= value);
+        });
+    }
+
+    function updateStars() {
+        highlightStars(rating);
+    }
+</script>
+{% endblock %}  <!-- Remove this line if you don't have a base template -->

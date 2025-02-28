@@ -1,0 +1,558 @@
+{% extends "index.html" %}
+{% block content %}
+
+<div class="disease-prediction-container">
+  <div class="prediction-header">
+    <h1 class="prediction-title">Results Of Prediction</h1>
+  </div>
+
+  <div class="prediction-content">
+    <div class="image-container">
+      <img src="{{ url_for('send_file', filename=image_file_name) }}" alt="Plant image" class="prediction-image">
+      <p class="image-filename">{{ image_file_name }}</p>
+    </div>
+
+    <div class="prediction-result">
+      <h2>Prediction: <span class="result-text">{{ result }}</span></h2>
+    </div>
+
+    <div id="disease-info-container" class="disease-info-container">
+      <!-- Disease information will be inserted here by JavaScript -->
+    </div>
+
+    <div class="action-buttons">
+      <a href="/" class="back-button">Back Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- Embedding JSON data into the template -->
+<script>
+const diseaseData = {
+    apple: {
+        applescab: {
+            Symptoms: "Olive-green spots on leaves and fruit.",
+            Remedies: [
+                "Use fungicides (captan, mancozeb)",
+                "Prune trees to improve airflow"
+            ]
+        },
+        blackrot: {
+            Symptoms: "Dark sunken lesions on fruit, leaves turning yellow.",
+            Remedies: [
+                "Remove infected fruit",
+                "Apply fungicides (copper-based, thiophanate-methyl)"
+            ]
+        },
+        cedarapplerust: {
+            Symptoms: "Orange spots on leaves, fungal growth.",
+            Remedies: [
+                "Remove nearby cedar trees",
+                "Use fungicides"
+            ]
+        },
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    blueberry: {
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    cherryincludingoursour: {
+        powderymildew: {
+            Symptoms: "White, powdery growth on leaves.",
+            Remedies: [
+                "Apply sulfur-based fungicides",
+                "Improve ventilation"
+            ]
+        },
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    cornmaize: {
+        cercosporaleafspotgrayleafspot: {
+            Symptoms: "Small tan or grayish lesions that expand and form streaks.",
+            Remedies: [
+                "Use resistant varieties",
+                "Apply fungicides like azoxystrobin"
+            ]
+        },
+        commonrust: {
+            Symptoms: "Reddish-brown pustules on leaves.",
+            Remedies: [
+                "Use resistant varieties",
+                "Apply fungicides like mancozeb"
+            ]
+        },
+        northernleafblight: {
+            Symptoms: "Long, brown lesions on leaves.",
+            Remedies: [
+                "Use fungicides (azoxystrobin, mancozeb)",
+                "Rotate crops"
+            ]
+        },
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    grape: {
+        blackrot: {
+            Symptoms: "Brown spots on leaves, shriveled black fruit.",
+            Remedies: [
+                "Use fungicides (myclobutanil, mancozeb)",
+                "Remove infected vines"
+            ]
+        },
+        escablackmeasles: {
+            Symptoms: "Dark streaks in vines, sunken black spots on fruit.",
+            Remedies: [
+                "Remove infected plants",
+                "Improve soil drainage"
+            ]
+        },
+        leafblightisariopsisleafspot: {
+            Symptoms: "Angular brown spots on leaves.",
+            Remedies: [
+                "Apply copper-based fungicides",
+                "Remove diseased leaves"
+            ]
+        },
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    orange: {
+        haunglongbingcitrusgreening: {
+            Symptoms: "Yellow mottling of leaves, small and bitter fruit.",
+            Remedies: [
+                "No cure; remove infected trees",
+                "Control psyllid insects"
+            ]
+        }
+    },
+    peach: {
+        bacterialspot: {
+            Symptoms: "Dark, sunken spots on fruit and leaves.",
+            Remedies: [
+                "Use copper-based sprays",
+                "Avoid overhead watering"
+            ]
+        },
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    pepperbell: {
+        bacterialspot: {
+            Symptoms: "Small, water-soaked spots turning brown with yellow halos.",
+            Remedies: [
+                "Use copper fungicides",
+                "Rotate crops every two years"
+            ]
+        },
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    patato: {
+        earlyblight: {
+            Symptoms: "Brown spots with concentric rings on leaves.",
+            Remedies: [
+                "Apply fungicides (chlorothalonil, mancozeb)",
+                "Ensure crop rotation"
+            ]
+        },
+        lateblight: {
+            Symptoms: "Large, dark lesions on leaves and stems.",
+            Remedies: [
+                "Use fungicides (metalaxyl, chlorothalonil)",
+                "Improve airflow"
+            ]
+        },
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    raspberry: {
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    soybean: {
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    squash: {
+        powderymildew: {
+            Symptoms: "White, powdery growth on leaves.",
+            Remedies: [
+                "Apply sulfur-based fungicides",
+                "Improve ventilation"
+            ]
+        }
+    },
+    strawberry: {
+        leafscorch: {
+            Symptoms: "Red or brown spots on leaves, curling edges.",
+            Remedies: [
+                "Use copper fungicides",
+                "Keep plants spaced to improve airflow"
+            ]
+        },
+        healthy: "No disease detected. Maintain good agricultural practices."
+    },
+    tomato: {
+        bacterialspot: {
+            Symptoms: "Small water-soaked spots on leaves, which turn brown with yellow halos.",
+            Remedies: [
+                "Use copper-based fungicides",
+                "Avoid overhead watering",
+                "Remove infected plants"
+            ]
+        },
+        earlyblight: {
+            Symptoms: "Dark brown spots with concentric rings on leaves and stems.",
+            Remedies: [
+                "Apply fungicides (chlorothalonil or mancozeb)",
+                "Remove infected leaves",
+                "Ensure crop rotation"
+            ]
+        },
+        lateblight: {
+            Symptoms: "Large, dark, water-soaked lesions on leaves; white fungal growth on undersides.",
+            Remedies: [
+                "Use fungicides (copper-based, chlorothalonil)",
+                "Improve air circulation",
+                "Remove infected plants"
+            ]
+        },
+        leafmold: {
+            Symptoms: "Yellow spots on leaves, leading to moldy growth on the underside.",
+            Remedies: [
+                "Use copper-based sprays",
+                "Ensure proper ventilation in greenhouses"
+            ]
+        },
+        septorialeafspot: {
+            Symptoms: "Small, circular spots with gray centers and dark borders.",
+            Remedies: [
+                "Remove infected leaves",
+                "Apply fungicides (mancozeb, chlorothalonil)"
+            ]
+        },
+        spidermitestwospottedspidermite: {
+            Symptoms: "Yellow stippling on leaves, webbing underneath leaves.",
+            Remedies: [
+                "Use neem oil or insecticidal soap",
+                "Introduce predatory mites (Phytoseiulus persimilis)"
+            ]
+        },
+        targetspot: {
+            Symptoms: "Dark brown spots with concentric rings.",
+            Remedies: [
+                "Use fungicides",
+                "Keep leaves dry"
+            ]
+        },
+        tomatoyellowleafcurlvirus: {
+            Symptoms: "Yellowing and curling of leaves, stunted growth.",
+            Remedies: [
+                "Control whiteflies with insecticides",
+                "Use resistant varieties"
+            ]
+        },
+        tomatomosaicvirus: {
+            Symptoms: "Mosaic pattern on leaves, wrinkled growth.",
+            Remedies: [
+                "Remove and destroy infected plants",
+                "Avoid handling infected plants to prevent transmission"
+            ]
+        },
+        healthy: "No disease detected. Maintain good agricultural practices."
+    }
+};
+
+const crop = "{{ crop|safe }}".toLowerCase().replace(/\s+/g, '');
+const prediction = "{{ result|safe }}".toLowerCase().replace(/\s+/g, '');
+
+console.log("Normalized Crop:", crop);
+console.log("Normalized Prediction:", prediction);
+
+// Normalize the keys in the diseaseData object for comparison
+const normalizedDiseaseData = {};
+Object.keys(diseaseData).forEach(originalCrop => {
+  const normalizedCrop = originalCrop.toLowerCase().replace(/\s+/g, '');
+  normalizedDiseaseData[normalizedCrop] = {};
+
+  Object.keys(diseaseData[originalCrop]).forEach(originalPrediction => {
+    const normalizedPrediction = originalPrediction.toLowerCase().replace(/\s+/g, '');
+    normalizedDiseaseData[normalizedCrop][normalizedPrediction] = diseaseData[originalCrop][originalPrediction];
+  });
+});
+
+const resultContainer = document.getElementById('disease-info-container');
+
+if (normalizedDiseaseData[crop] && normalizedDiseaseData[crop][prediction]) {
+  const diseaseInfo = normalizedDiseaseData[crop][prediction];
+
+  if (typeof diseaseInfo === 'object') {
+    // Display Symptoms
+    const symptomsTitle = document.createElement('h3');
+    symptomsTitle.textContent = "Symptoms:";
+    symptomsTitle.className = "info-title";
+    resultContainer.appendChild(symptomsTitle);
+
+    const symptomsText = document.createElement('p');
+    symptomsText.textContent = diseaseInfo.Symptoms;
+    symptomsText.className = "info-text";
+    resultContainer.appendChild(symptomsText);
+
+    // Display Remedies
+    const remediesTitle = document.createElement('h3');
+    remediesTitle.textContent = "Remedies:";
+    remediesTitle.className = "info-title";
+    resultContainer.appendChild(remediesTitle);
+
+    const remediesList = document.createElement('ul');
+    remediesList.className = "remedies-list";
+
+    diseaseInfo.Remedies.forEach(remedy => {
+      const remedyItem = document.createElement('li');
+      remedyItem.textContent = remedy;
+      remedyItem.className = "remedy-item";
+      remediesList.appendChild(remedyItem);
+    });
+
+    resultContainer.appendChild(remediesList);
+  } else {
+    // If it's a Healthy status
+    const healthyText = document.createElement('p');
+    healthyText.textContent = diseaseInfo;
+    healthyText.className = "healthy-text";
+    resultContainer.appendChild(healthyText);
+  }
+} else {
+  // If no data is available for the prediction
+  const errorText = document.createElement('p');
+  errorText.textContent = "No additional information available for this prediction.";
+  errorText.className = "error-text";
+  resultContainer.appendChild(errorText);
+}
+</script>
+
+<style>
+/* Base styles */
+:root {
+  --primary-color: #4CAF50;
+  --primary-dark: #388E3C;
+  --primary-light: #C8E6C9;
+  --accent-color: #8BC34A;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --divider-color: #BDBDBD;
+  --background-light: #f9f9f9;
+  --background-white: #ffffff;
+  --error-color: #F44336;
+  --success-color: #4CAF50;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+/* Container styles */
+.disease-prediction-container {
+  max-width: 1000px;
+  margin: 6rem auto 3rem;
+  padding: 2rem;
+  background-color: var(--background-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+/* Header styles */
+.prediction-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.prediction-title {
+  color: var(--primary-dark);
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.prediction-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 3px;
+}
+
+/* Content styles */
+.prediction-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Image container */
+.image-container {
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.prediction-image {
+  max-width: 100%;
+  max-height: 450px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+}
+
+.prediction-image:hover {
+  transform: scale(1.02);
+}
+
+.image-filename {
+  margin-top: 0.75rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Prediction result */
+.prediction-result {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.prediction-result h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.result-text {
+  color: var(--success-color);
+  font-weight: 700;
+}
+
+/* Disease info container */
+.disease-info-container {
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background-color: var(--background-light);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--primary-color);
+  transition: var(--transition);
+}
+
+.info-title {
+  color: var(--primary-dark);
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.info-text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.remedies-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.remedy-item {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.remedy-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.healthy-text {
+  color: var(--success-color);
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.error-text {
+  color: var(--error-color);
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Action buttons */
+.action-buttons {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: var(--transition);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+  .prediction-title {
+    font-size: 2.5rem;
+  }
+  
+  .disease-info-container {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .disease-prediction-container {
+    padding: 1.5rem;
+    margin-top: 4rem;
+  }
+  
+  .prediction-title {
+    font-size: 1.75rem;
+  }
+  
+  .prediction-result h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .disease-prediction-container {
+    padding: 1rem;
+    margin-top: 3rem;
+  }
+  
+  .prediction-title {
+    font-size: 1.5rem;
+  }
+  
+  .info-title {
+    font-size: 1.1rem;
+  }
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agri App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@100;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
+    <style>
+        :root {
+            --primary-green: #2e7d32;
+            --dark-green: #1b5e20;
+            --light-green: #4caf50;
+            --accent-green: #8bc34a;
+            --white: #ffffff;
+            --off-white: #f5f5f5;
+            --gray: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+       /* =========== Navbar Styling =========== */
+/* =========== Navbar Styling =========== */
+.navbar {
+  position: fixed; /* Ensures the navbar stays at the top */
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Keeps it above other elements */
+  background: rgba(255, 255, 255, 0.2); /* Transparent glass effect */
+  backdrop-filter: blur(10px); /* Blur effect for glass morphism */
+  -webkit-backdrop-filter: blur(10px); /* Safari compatibility */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border for the glass effect */
+  padding: 15px 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow for elegance */
+}
+
+.navbar.scrolled {
+  padding: 8px 0;
+  background: rgba(255, 255, 255, 0.7); /* Slightly opaque for better readability */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow for scrolled state */
+  transition: background 0.3s ease, padding 0.3s ease;
+}
+
+/* Align Agrigo to the left */
+.navbar-brand {
+   margin-right: auto;/* Push the remaining links to the right */
+  text-align: left;
+}
+
+.navbar-brand p {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 2rem;
+  margin: 0;
+  color: var(--white);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Slightly stronger text shadow */
+  transition: color 0.3s ease;
+}
+
+/* Align navbar links to the right */
+.navbar-nav {
+  display: flex;
+  justify-content: flex-end; /* Push links to the far right */
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style individual nav links */
+.navbar-dark .navbar-nav .nav-link {
+  color: var(--dark-green);
+  font-weight: 500;
+  padding: 8px 15px;
+  margin: 0;
+  transition: all 0.3s ease;
+  text-decoration: none; /* Remove underline */
+  background: none; /* Remove background */
+  border: none; /* Remove any border */
+  border-radius: 0; /* No rounded corners */
+}
+
+/* Highlight the Home link */
+.navbar-dark .navbar-nav .nav-link.home-link {
+  color: var(--white); /* White text for Home */
+  font-weight: bold; /* Make it stand out */
+}
+
+/* Hover effects for all links */
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+  color: var(--white); /* Light green on hover */
+   /* Subtle underline for interactivity */
+}
+
+/* Navbar toggler (for mobile view) */
+.navbar-toggler {
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Matches the glass effect */
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2); /* Transparent toggle button */
+  color: var(--dark-green);
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler:hover {
+  background: rgba(255, 255, 255, 0.4); /* Slightly more visible on hover */
+  color: var(--light-green);
+  transform: scale(1.1); /* Slight zoom effect */
+}
+
+/* Ensure content below the navbar adjusts to fixed height */
+body {
+  padding-top: 70px; /* Adjust to navbar height to prevent overlap */
+}
+
+
+/* Add smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure content below the navbar adjusts to fixed height */
+body {
+  padding-top: 70px; /* Adjust to navbar height to prevent overlap */
+}
+
+        /* =========== Banner Section =========== */
+        #banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../static/images/0.jpg);
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .banner-text {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .banner-text h1 {
+            font-family: 'Kaushan Script', cursive;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .banner-text p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .banner-btn {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .banner-btn a {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: transparent;
+            border: 2px solid var(--light-green);
+            color: var(--white);
+            font-weight: 500;
+            border-radius: 30px;
+            text-decoration: none;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .banner-btn a span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: var(--light-green);
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .banner-btn a:hover {
+            color: var(--white);
+        }
+
+        .banner-btn a:hover span {
+            width: 100%;
+        }
+
+        /* =========== Features Section =========== */
+        #feature {
+            padding: 100px 0;
+            background-color: var(--off-white);
+        }
+
+        .title-text {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .title-text p {
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            font-weight: 500;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .title-text p::after {
+            content: '';
+            width: 50px;
+            height: 3px;
+            background: var(--light-green);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+        }
+
+        .title-text h1 {
+            font-size: 2.5rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .feature-box {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features {
+            flex-basis: 50%;
+            padding: 0 30px;
+        }
+
+        .features h1 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .features-desc {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 20px;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-text p {
+            color: var(--gray);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+       .features-img {
+    flex-basis: 40%;
+    height: auto; /* Ensures the container adjusts dynamically */
+    margin: 30px 0;
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+.features-img img {
+    width: 100%; /* Makes the image take the full width of its container */
+    aspect-ratio: 1 / 1; /* Ensures a square aspect ratio */
+    object-fit: cover; /* Ensures the image fills the square while maintaining visual quality */
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
+
+        .features-img:hover {
+            transform: translateY(-10px);
+        }
+
+        /* =========== Services Section =========== */
+       .service-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1000px;
+    margin: 10px auto;
+    gap: 20px; /* Optional: Add spacing between items */
+}
+.single-service {
+    flex-basis: 48%; /* Ensure two items fit in one row */
+    text-align: center;
+    background-color: var(--white);
+    padding: 20px;
+    margin: 5px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+.single-service .service-content img {
+    width: 100%; /* Ensures the image fills the container */
+    aspect-ratio: 1 / 1; /* Makes the image a square */
+    object-fit: cover; /* Crops the image to fit the square */
+    border-radius: 10px; /* Matches the overall design */
+    margin-bottom: 15px; /* Adds space between the image and text */
+}
+
+.single-service h1 {
+    font-size: 1.5rem; /* Adjusts the size of the heading */
+    margin: 10px 0; /* Adds spacing around the heading */
+    color: #333; /* Uses a consistent color */
+}
+
+.single-service p {
+    font-size: 1rem; /* Standardizes the paragraph text size */
+    line-height: 1.5; /* Improves readability */
+    color: #555; /* Softer color for secondary text */
+}
+
+.single-service a {
+    text-decoration: none; /* Removes underline from the link */
+    color: inherit; /* Ensures the color matches the rest of the text */
+}
+
+ #chatbot-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: #0078d7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    #chat-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+ #chatbot-container {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        z-index: 9999;
+        width: 450px;
+        height: 605px;
+        display: none;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: white;
+    }
+
+    #chatbot-frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+@media (max-width: 768px) {
+    .single-service {
+        flex-basis: 100%; /* Stacks items in one column on smaller screens */
+    }
+}
+
+
+@media (max-width: 768px) {
+    .single-service {
+        flex-basis: 100%; /* Stacks items in one column on smaller screens */
+    }
+}
+
+        .single-service:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-content {
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .service-content img {
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+
+        .single-service:hover img {
+            transform: scale(1.1);
+        }
+
+        .single-service h1 {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .single-service p {
+            color: var(--gray);
+            padding: 0 10px;
+            font-weight: 400;
+        }
+
+        /* =========== Contact Section =========== */
+      #contact {
+  padding: 60px 20px; 
+        background: radial-gradient(var(--primary-green), var(--light-green));/* Subtle gradient matching header colors */
+  color: var(--white);
+  width: 100%; /* Full screen width */
+  /* box-shadow: inset 0 -2px 10px rgba(0, 0, 0, 0.2); Subtle shadow for depth */
+}
+
+.footer-title-text {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.footer-title-text h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--white); /* Consistent with header */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Slight shadow for text clarity */
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Spread content evenly */
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto; /* Center content horizontally */
+}
+
+.footer-left, .footer-right {
+  flex-basis: 45%;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2); /* Glass effect for content blocks */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  color: var(--white);
+}
+
+.footer-left h1, .footer-right h1 {
+  font-family: 'Kaushan Script', cursive;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: var(--white);
+}
+
+.footer-left p, .footer-right p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8); /* Softer white for better readability */
+}
+
+.footer-right a {
+  color: var(--accent-green);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.footer-right a:hover {
+  color: var(--light-green);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle hover effect */
+}
+/* Subscribe Section */
+.subscribe-section {
+  text-align: center;
+  margin-top: 30px;
+  color: rgba(255, 255, 255, 0.9); /* Softer white for text */
+}
+
+.subscribe-section p {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+.subscribe-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.subscribe-form input[type="email"] {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.subscribe-form input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.subscribe-form input[type="email"]:focus {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.5); /* Highlight effect */
+}
+
+.subscribe-form button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--white);
+  background: var(--accent-green);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.subscribe-form button:hover {
+  background: var(--light-green);
+  box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4); /* Slight glow effect */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .subscribe-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+ 
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .footer-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footer-left, .footer-right {
+    flex-basis: 100%;
+    text-align: center; /* Center-align content for smaller screens */
+  }
+
+  .footer-title-text h1 {
+    font-size: 2rem;
+  }
+}
+
+        /* =========== Animations =========== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .animate-fadeInLeft {
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .animate-fadeInRight {
+            animation: fadeInRight 1s ease-out;
+        }
+
+        /* =========== Responsive Design =========== */
+        @media screen and (max-width: 991px) {
+            .features, .features-img {
+                flex-basis: 100%;
+            }
+
+            .features-img {
+                margin-top: 50px;
+            }
+
+            .single-service {
+                flex-basis: 45%;
+            }
+
+            .banner-text h1 {
+                font-size: 4rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .single-service {
+                flex-basis: 100%;
+            }
+
+            .footer-left, .footer-right {
+                flex-basis: 100%;
+            }
+
+            .banner-text h1 {
+                font-size: 3rem;
+            }
+
+            .banner-text p {
+                font-size: 1.2rem;
+            }
+
+            .banner-btn {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .banner-btn a {
+                width: 200px;
+            }
+
+            .title-text h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .banner-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .feature-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .features h1 {
+                font-size: 1.5rem;
+            }
+
+            .title-text h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <p>DemeterAI</p>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav m-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+					  <li><a class="nav-link active" href="/crop-disease">Crop Diseases</a></li>
+                            <li><a class="nav-link active" href="/fertilizer-recommendation">Fertilizer recommendation</a>
+                            </li>
+                            <li><a class="nav-link active" href="/crop-recommendation">Crop recommendation</a></li>
+                            <li><a class="nav-link active" href="/weather">Weather</a></li>
+                            <li><a class="nav-link active" href="/feedback">Feedback</a></li>
+		     </ul>
+                  
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    <section id="banner">
+        <div class="banner-text">
+            <h1>DemeterAI</h1>
+            <p>Leverage AI power to grow your field to the maximum</p>
+            <div class="banner-btn">
+                <a href="#services"><span></span>Find Out</a>
+                <a href="#feature"><span></span>Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="feature">
+        <div class="title-text">
+            <p>FEATURES</p>
+            <h1>WHY CHOOSE US</h1>
+        </div>
+        <div class="feature-box">
+            <div class="features">
+                <h1>Quick Diagnosis</h1>
+                <div class="features-desc">
+                    <div class="feature-icon">
+                        <i class="fa fa-bolt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <p>AI models make it possible to identify and treat crop diseases quickly and efficiently. </p>
+                    </div>
+
+                </div>
+                <h1>Increase Yield</h1>
+                <div class="features-desc">
+                    <div class="feature-icon">
+                        <i class="fa fa-seedling"></i>
+                    </div>
+                    <div class="feature-text">
+                        <p>With our precise recommendations the farmer can easily maximize the yield of his fields. </p>
+                    </div>
+
+                </div>
+                <h1>Reduce cost</h1>
+                <div class="features-desc">
+                    <div class="feature-icon">
+                        <i class="fa fa-dollar-sign"></i>
+                    </div>
+                    <div class="feature-text">
+                        <p>There is no need for agricultural experts or advanced crop management tools thus reducing the
+                            production cost. </p>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="features-img">
+                <img src="./static/images/bg1.jpg">
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="title-text">
+            <p>SERVICES</p>
+            <h1>WE PROVIDE</h1>
+        </div>
+        <div class="service-box">
+
+            <div class="single-service">
+                <div class="service-content">
+                    <img src="./static/images/crop_recomandation.jpg">
+                </div>
+                <a href="/crop-recommendation" style="color: #000">
+                    <h1>Crop Recommendation</h1>
+                </a>
+                <p>Analyzes soil and weather data to find the best suited crop. </p>
+            </div>
+
+            <div class="single-service">
+                <div class="service-content">
+                    <img src="./static/images/fertilizer.jpg">
+
+                </div>
+                <a href="/fertilizer-recommendation" style="color: #000">
+                    <h1>Fertilizer Recommendation</h1>
+                </a>
+                <p>Analyzes soil and crop type to find the best fertilizer for your crop. </p>
+            </div>
+
+            <div class="single-service">
+                <div class="service-content">
+                    <img src="./static/images/crop_disease.jpg">
+
+                </div>
+                <a href="/crop-disease" style="color: #000">
+                    <h1>Crop Disease Prediction</h1>
+                </a>
+                <p>From the images of your crops our models can check their health. </p>
+            </div>
+			   <div class="single-service">
+                <div class="service-content">
+                    <img src="./static/images/weather.jpg">
+
+                </div>
+                <a href="/weather" style="color: #000">
+                    <h1>Weather Prediction</h1>
+                </a>
+                <p>You can check the weather in your area.</p>
+            </div>
+
+        </div>
+    </section>
+<section id="contact">
+  <div class="footer-title-text">
+    <h1>CONTACT ME</h1>
+  </div>
+  <div class="footer-row">
+    <div class="footer-left">
+      <h1>DemeterAI</h1>
+      <p>Email: DemeterAI@gmail.com</p>
+    </div>
+    <div class="footer-right">
+      <h1>DemeterAI</h1>
+      <p>Github: <a href="https://github.com"><i class="fab fa-github"></i> DemeterAI</a></p>
+    </div>
+  </div>
+<div class="subscribe-section">
+    <p>For the latest updates on weather, enter your email and stay informed!</p>
+    <form id="subscribeForm" class="subscribe-form">
+        <input id="email" type="email" placeholder="Enter your email" required>
+        <button type="submit">Subscribe</button>
+    </form>
+
+</div>
+
+<div id="chatbot-toggle">
+    <img src="/static/images/chat-icon.jpg" alt="Chat" id="chat-icon">
+</div>
+
+<!-- Chatbot Container (Hidden by Default) -->
+<div id="chatbot-container">
+    <iframe src="/static/chatbot.html" id="chatbot-frame"></iframe>
+</div>
+
+</section>
+
+
+    {% endblock %}
+
+    <script type="text/javascript" src="./static/js/my.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // Scroll Animation for Navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll Animation for Elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = function() {
+                const features = document.querySelector('.features');
+                const featuresImg = document.querySelector('.features-img');
+                const services = document.querySelectorAll('.single-service');
+                
+                // Check if elements are in viewport
+                if (isInViewport(features)) {
+                    features.classList.add('animate-fadeInLeft');
+                }
+                
+                if (isInViewport(featuresImg)) {
+                    featuresImg.classList.add('animate-fadeInRight');
+                }
+                
+                services.forEach((service, index) => {
+                    if (isInViewport(service)) {
+                        setTimeout(() => {
+                            service.classList.add('animate-fadeInUp');
+                        }, index * 200);
+                    }
+                });
+            };
+            
+            // Check if element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            // Run on scroll and on load
+            window.addEventListener('scroll', animateElements);
+            animateElements();
+        });
+
+
+        document.getElementById('subscribeForm').addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent form submission from reloading the page
+    const email = document.getElementById('email').value;
+
+    try {
+        const response = await fetch('/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+        });
+
+        if (response.ok) {
+            alert('Thank you for subscribing!');
+        } else {
+            alert('Something went wrong. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    }
+});
+  
+
+
+      document.getElementById('chatbot-toggle').addEventListener('click', function () {
+        const chatbotContainer = document.getElementById('chatbot-container');
+        if (chatbotContainer.style.display === 'none' || chatbotContainer.style.display === '') {
+            chatbotContainer.style.display = 'block'; // Show the chatbot
+        } else {
+            chatbotContainer.style.display = 'none'; // Hide the chatbot
+        }
+    });
+
+
+    </script>
+</body>
+
+</html>
